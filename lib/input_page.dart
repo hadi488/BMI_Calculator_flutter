@@ -35,34 +35,26 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      selectGender(Gender.male);
-                    },
-                    child: CustomContainer(
-                      containerchild: ContainerChildItems(
-                        faIcon: FontAwesomeIcons.mars,
-                        text: 'MALE',
-                      ),
-                      containerColor: selectedGender == Gender.male
-                          ? activeContainerColor
-                          : inActiveContainerColor,
+                  child: CustomContainer(
+                    onPress: () => selectGender(Gender.male),
+                    containerchild: ContainerChildItems(
+                      faIcon: FontAwesomeIcons.mars,
+                      text: 'MALE',
                     ),
+                    containerColor: selectedGender == Gender.male
+                        ? activeContainerColor
+                        : inActiveContainerColor,
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      selectGender(Gender.female);
-                    },
-                    child: CustomContainer(
-                      containerColor: selectedGender == Gender.female
-                          ? activeContainerColor
-                          : inActiveContainerColor,
-                      containerchild: ContainerChildItems(
-                        faIcon: FontAwesomeIcons.venus,
-                        text: 'FEMALE',
-                      ),
+                  child: CustomContainer(
+                    onPress: () => selectGender(Gender.female),
+                    containerColor: selectedGender == Gender.female
+                        ? activeContainerColor
+                        : inActiveContainerColor,
+                    containerchild: ContainerChildItems(
+                      faIcon: FontAwesomeIcons.venus,
+                      text: 'FEMALE',
                     ),
                   ),
                 ),
