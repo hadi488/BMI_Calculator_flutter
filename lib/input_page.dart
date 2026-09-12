@@ -17,22 +17,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inActiveContainerColor;
-  Color femaleCardColor = inActiveContainerColor;
-  // 1 = male , 2 = female
-  void updateGenderCardColor(Gender gender) {
+  Gender? selectedGender;
+  void selectGender(Gender gender) {
     setState(() {
-      if (gender == Gender.male) {
-        if (maleCardColor == inActiveContainerColor) {
-          maleCardColor = activeContainerColor;
-          femaleCardColor = inActiveContainerColor;
-        }
-      } else {
-        if (femaleCardColor == inActiveContainerColor) {
-          femaleCardColor = activeContainerColor;
-          maleCardColor = inActiveContainerColor;
-        }
-      }
+      selectedGender = gender;
     });
   }
 
@@ -49,24 +37,28 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      updateGenderCardColor(Gender.male);
+                      selectGender(Gender.male);
                     },
                     child: CustomContainer(
                       containerchild: ContainerChildItems(
                         faIcon: FontAwesomeIcons.mars,
                         text: 'MALE',
                       ),
-                      containerColor: maleCardColor,
+                      containerColor: selectedGender == Gender.male
+                          ? activeContainerColor
+                          : inActiveContainerColor,
                     ),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      updateGenderCardColor(Gender.female);
+                      selectGender(Gender.female);
                     },
                     child: CustomContainer(
-                      containerColor: femaleCardColor,
+                      containerColor: selectedGender == Gender.female
+                          ? activeContainerColor
+                          : inActiveContainerColor,
                       containerchild: ContainerChildItems(
                         faIcon: FontAwesomeIcons.venus,
                         text: 'FEMALE',
