@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'custom_container.dart';
+import 'icon_content.dart';
+
+const bottomContainerHeight = 80.0;
+const containerColor = Color(0xFF1D1E33);
+const bottomContainerColor = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,38 +24,38 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                CustomContainer(color: Color(0xFF1D1E33)),
-                CustomContainer(color: Color(0xFF1D1E33)),
+                CustomContainer(
+                  color: containerColor,
+                  containerchild: ContainerChildItems(
+                    faIcon: FontAwesomeIcons.mars,
+                    text: 'MALE',
+                  ),
+                ),
+                CustomContainer(
+                  color: containerColor,
+                  containerchild: ContainerChildItems(
+                    faIcon: FontAwesomeIcons.venus,
+                    text: 'FEMALE',
+                  ),
+                ),
               ],
             ),
           ),
-          CustomContainer(color: Color(0xFF1D1E33)),
+          CustomContainer(color: containerColor),
           Expanded(
             child: Row(
               children: [
-                CustomContainer(color: Color(0xFF1D1E33)),
-                CustomContainer(color: Color(0xFF1D1E33)),
+                CustomContainer(color: containerColor),
+                CustomContainer(color: containerColor),
               ],
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            height: bottomContainerHeight,
+            color: bottomContainerColor,
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class CustomContainer extends StatelessWidget {
-  Color? color;
-  CustomContainer({super.key, required this.color});
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: color,
-        ),
       ),
     );
   }
