@@ -5,8 +5,11 @@ import 'custom_container.dart';
 import 'icon_content.dart';
 
 const bottomContainerHeight = 80.0;
-const containerColor = Color(0xFF1D1E33);
+const activeContainerColor = Color(0xFF1D1E33);
+const inActiveContainerColor = Color(0xFF111328);
 const bottomContainerColor = Color(0xFFEB1555);
+
+enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   @override
@@ -14,6 +17,25 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleCardColor = inActiveContainerColor;
+  Color femaleCardColor = inActiveContainerColor;
+  // 1 = male , 2 = female
+  void updateGenderCardColor(Gender gender) {
+    setState(() {
+      if (gender == Gender.male) {
+        if (maleCardColor == inActiveContainerColor) {
+          maleCardColor = activeContainerColor;
+          femaleCardColor = inActiveContainerColor;
+        }
+      } else {
+        if (femaleCardColor == inActiveContainerColor) {
+          femaleCardColor = activeContainerColor;
+          maleCardColor = inActiveContainerColor;
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,29 +46,49 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                CustomContainer(
-                  color: containerColor,
-                  containerchild: ContainerChildItems(
-                    faIcon: FontAwesomeIcons.mars,
-                    text: 'MALE',
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      updateGenderCardColor(Gender.male);
+                    },
+                    child: CustomContainer(
+                      containerchild: ContainerChildItems(
+                        faIcon: FontAwesomeIcons.mars,
+                        text: 'MALE',
+                      ),
+                      containerColor: maleCardColor,
+                    ),
                   ),
                 ),
-                CustomContainer(
-                  color: containerColor,
-                  containerchild: ContainerChildItems(
-                    faIcon: FontAwesomeIcons.venus,
-                    text: 'FEMALE',
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      updateGenderCardColor(Gender.female);
+                    },
+                    child: CustomContainer(
+                      containerColor: femaleCardColor,
+                      containerchild: ContainerChildItems(
+                        faIcon: FontAwesomeIcons.venus,
+                        text: 'FEMALE',
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          CustomContainer(color: containerColor),
+          Expanded(
+            child: CustomContainer(containerColor: activeContainerColor),
+          ),
           Expanded(
             child: Row(
               children: [
-                CustomContainer(color: containerColor),
-                CustomContainer(color: containerColor),
+                Expanded(
+                  child: CustomContainer(containerColor: activeContainerColor),
+                ),
+                Expanded(
+                  child: CustomContainer(containerColor: activeContainerColor),
+                ),
               ],
             ),
           ),
