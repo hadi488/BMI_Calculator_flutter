@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const iconSize = 80.0;
-const sizedBoxHeight = 15.0;
-const textStyle = TextStyle(fontSize: 18, color: Color(0xFF8D8E98));
+import 'constants.dart';
 
 class ContainerChildItems extends StatelessWidget {
   final FaIconData? faIcon;
@@ -15,9 +13,9 @@ class ContainerChildItems extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        FaIcon(faIcon, size: iconSize),
-        SizedBox(height: sizedBoxHeight),
-        Text(text!, style: textStyle),
+        FaIcon(faIcon, size: kIconSize),
+        SizedBox(height: kSizedBoxHeight),
+        Text(text!, style: kTextStyle),
       ],
     );
   }

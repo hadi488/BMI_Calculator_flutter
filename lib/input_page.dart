@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'constants.dart';
 import 'custom_container.dart';
 import 'icon_content.dart';
-
-const bottomContainerHeight = 80.0;
-const activeContainerColor = Color(0xFF1D1E33);
-const inActiveContainerColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFEB1555);
 
 enum Gender { male, female }
 
@@ -18,6 +14,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
+  int height = 180;
   void selectGender(Gender gender) {
     setState(() {
       selectedGender = gender;
@@ -42,16 +39,16 @@ class _InputPageState extends State<InputPage> {
                       text: 'MALE',
                     ),
                     containerColor: selectedGender == Gender.male
-                        ? activeContainerColor
-                        : inActiveContainerColor,
+                        ? kActiveContainerColor
+                        : kInActiveContainerColor,
                   ),
                 ),
                 Expanded(
                   child: CustomContainer(
                     onPress: () => selectGender(Gender.female),
                     containerColor: selectedGender == Gender.female
-                        ? activeContainerColor
-                        : inActiveContainerColor,
+                        ? kActiveContainerColor
+                        : kInActiveContainerColor,
                     containerchild: ContainerChildItems(
                       faIcon: FontAwesomeIcons.venus,
                       text: 'FEMALE',
@@ -62,24 +59,54 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: CustomContainer(containerColor: activeContainerColor),
+            child: CustomContainer(
+              containerchild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("HEIGHT", style: kTextStyle),
+                  Row(
+                    textBaseline: TextBaseline.alphabetic,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(height.toString(), style: kHeightNumTextStyle),
+                      Text("cm", style: kTextStyle),
+                    ],
+                  ),
+                  Slider(
+                    activeColor: kSliderActiveColor,
+                    inactiveColor: kSliderInactiveColor,
+                    min: 18,
+                    max: 400,
+                    value: height.toDouble(),
+                    onChanged: (double newValue) {
+                      setState(() {
+                        height = newValue.round();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              containerColor: kActiveContainerColor,
+            ),
           ),
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: CustomContainer(containerColor: activeContainerColor),
+                  child: CustomContainer(containerColor: kActiveContainerColor),
                 ),
                 Expanded(
-                  child: CustomContainer(containerColor: activeContainerColor),
+                  child: CustomContainer(containerColor: kActiveContainerColor),
                 ),
               ],
             ),
           ),
           Container(
             margin: EdgeInsets.only(top: 10),
-            height: bottomContainerHeight,
-            color: bottomContainerColor,
+            height: kBottomContainerHeight,
+            color: kBottomContainerColor,
           ),
         ],
       ),
