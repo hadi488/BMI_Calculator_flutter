@@ -11,5 +11,10 @@ const kHeightNumTextStyle = TextStyle(
   fontSize: 50,
   fontWeight: FontWeight.w900,
 );
-const kSliderActiveColor = Color(0xFFEB1555);
+const kSliderActiveColor = Colors.white;
 const kSliderInactiveColor = Color(0xFF8D8E98);
+const kSliderThumbColor = Color(0xFFEB1555);
+const kIconButtonColor = Color(0xFF4C4F5E);
+const kBottomTextStyle = TextStyle(fontSize: 26, fontWeight: FontWeight.bold);
+const kIconButtonWidth = 45.0;
+const kIconButtonHeight = 45.0;

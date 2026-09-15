@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constants.dart';
 import 'custom_container.dart';
 import 'icon_content.dart';
+import 'result_page.dart';
 
 enum Gender { male, female }
 
@@ -15,6 +16,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 20;
   void selectGender(Gender gender) {
     setState(() {
       selectedGender = gender;
@@ -74,17 +77,25 @@ class _InputPageState extends State<InputPage> {
                       Text("cm", style: kTextStyle),
                     ],
                   ),
-                  Slider(
-                    activeColor: kSliderActiveColor,
-                    inactiveColor: kSliderInactiveColor,
-                    min: 18,
-                    max: 400,
-                    value: height.toDouble(),
-                    onChanged: (double newValue) {
-                      setState(() {
-                        height = newValue.round();
-                      });
-                    },
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: kSliderActiveColor,
+                      inactiveTrackColor: kSliderInactiveColor,
+                      thumbColor: kSliderThumbColor,
+                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15),
+                      overlayColor: kSliderThumbColor.withAlpha(0x1f),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
+                    ),
+                    child: Slider(
+                      min: 18,
+                      max: 400,
+                      value: height.toDouble(),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -95,21 +106,114 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: CustomContainer(containerColor: kActiveContainerColor),
+                  child: CustomContainer(
+                    containerchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("WEIGHT", style: kTextStyle),
+                        SizedBox(height: kSizedBoxHeight),
+                        Text(weight.toString(), style: kHeightNumTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RawIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10),
+                            RawIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    containerColor: kActiveContainerColor,
+                  ),
                 ),
                 Expanded(
-                  child: CustomContainer(containerColor: kActiveContainerColor),
+                  child: CustomContainer(
+                    containerchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("AGE", style: kTextStyle),
+                        SizedBox(height: kSizedBoxHeight),
+                        Text(age.toString(), style: kHeightNumTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RawIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPress: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10),
+                            RawIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPress: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    containerColor: kActiveContainerColor,
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            height: kBottomContainerHeight,
-            color: kBottomContainerColor,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ResultPage()),
+              );
+            },
+            child: Container(
+              child: Text("Calculate", style: kBottomTextStyle),
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 10),
+              height: kBottomContainerHeight,
+              color: kBottomContainerColor,
+            ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class RawIconButton extends StatelessWidget {
+  const RawIconButton({super.key, this.icon, this.onPress});
+  final FaIconData? icon;
+  final void Function()? onPress;
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPress,
+      fillColor: kIconButtonColor,
+      shape: CircleBorder(),
+      constraints: BoxConstraints.tightFor(
+        width: kIconButtonWidth,
+        height: kIconButtonHeight,
+      ),
+      child: FaIcon(icon, color: Colors.white, size: 18),
     );
   }
 }
